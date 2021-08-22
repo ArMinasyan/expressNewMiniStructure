@@ -17,16 +17,4 @@ module.exports = class BaseService {
 
   Delete(id, res) {
   }
-
-  Message(message, res) {
-    const responseMessage = {};
-    if (message.data) responseMessage.data = message.data;
-    if (message.message) responseMessage.message = message.message;
-
-    res.status(message.statusCode || 200).json(responseMessage)
-  }
-
-  setApp(app) {
-    this.app = app;
-  }
 }

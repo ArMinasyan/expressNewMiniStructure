@@ -7,7 +7,7 @@ const ResponseService = require('./responseService');
 module.exports = class UserService extends BaseService {
   constructor() {
     super();
-    this.userModel = new DBService().setModel('user', userSchema);
+    this.userModel = new DBService().createModel('user', userSchema);
     this.responseMessage = new ResponseService();
   }
 

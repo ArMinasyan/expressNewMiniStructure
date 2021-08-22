@@ -15,7 +15,7 @@ module.exports = class DBService {
   }
 
 
-  setModel(modelName, schema) {
+  createModel(modelName, schema) {
     return connection.model(modelName, schema)
   }
 }
