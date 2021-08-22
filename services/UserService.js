@@ -5,21 +5,23 @@ const { mongo } = require("mongoose");
 const ResponseService = require('./responseService');
 
 module.exports = class UserService extends BaseService {
-  constructor() {
+  constructor(app) {
     super();
-    this.userModel = new DBService().createModel('user', userSchema);
-    this.responseMessage = new ResponseService();
+    this.userModel = (new DBService()).createModel('user', userSchema);
+    this.Controller(app, 'user');
   }
+
 
   async Create(data, res) {
     const isExist = await this.userModel.findOne({
       username: data.username
     });
 
-    if (isExist) this.responseMessage.exist('User already exist');
-
-    const user = await this.userModel.create(data);
-    this.responseMessage.found(user, res)
+    if (isExist) this.responseMessage.exist('User already exist', res);
+    else {
+      const user = await this.userModel.create(data);
+      this.responseMessage.found(user, res)
+    }
   }
 
   async ReadAll(res) {
@@ -51,13 +53,14 @@ module.exports = class UserService extends BaseService {
           statusCode: 409,
           message: "Username already exist"
         }, res)
-      }
-      const user = await this.userModel.findByIdAndUpdate(id, data);
-
-      if (user) {
-        this.responseMessage.updated("User's data updated", res);
       } else {
-        this.responseMessage.notFound("User not found", res);
+        const user = await this.userModel.findByIdAndUpdate(id, data);
+
+        if (user) {
+          this.responseMessage.updated("User's data updated", res);
+        } else {
+          this.responseMessage.notFound("User not found", res);
+        }
       }
     } else {
       this.responseMessage.otherError({
