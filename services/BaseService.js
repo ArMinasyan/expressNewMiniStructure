@@ -9,8 +9,8 @@ module.exports = class BaseService {
   }
 
   ReadById(id, res) {
-
   }
+
 
   Update(id, data, res) {
   }
