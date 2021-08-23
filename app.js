@@ -8,13 +8,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 const DBService = require('./services/DBService');
+new DBService().connect("mongodb://localhost:27017/testExpress").then();
+
 const services = require('./services/services');
-new DBService().connect("mongodb://localhost:27017/testExpress").then()
+
 
 for (let key in services) {
   new services[key](app)
 }
 
-app.listen(8080, () => {
+app.listen(8000, () => {
   console.log('Start')
 })

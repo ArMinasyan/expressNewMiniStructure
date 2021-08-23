@@ -8,10 +8,15 @@ module.exports = class DBService {
   }
 
   async connect(connectionString) {
-    this.connection = await mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    try {
+      this.connection = await mongoose.connect(connectionString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
+      });
+    } catch (err) {
+      throw new err
+    }
   }
 
 

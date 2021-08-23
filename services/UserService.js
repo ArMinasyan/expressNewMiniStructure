@@ -16,23 +16,23 @@ module.exports = class UserService extends BaseService {
       username: data.username
     });
 
-    if (isExist) this.responseMessage.exist('User already exist', res);
+    if (isExist) this.responseMessage.conflict('User already exist', res);
     else {
       const user = await this.userModel.create(data);
-      this.responseMessage.found(user, res)
+      this.responseMessage.createOrFound(user, res)
     }
   }
 
   async ReadAll(res) {
     const data = await this.userModel.find();
-    this.responseMessage.found(data, res)
+    this.responseMessage.createOrFound(data, res)
   }
 
   async ReadById(id, res) {
     if (mongo.ObjectID.isValid(id)) {
       const data = await this.userModel.findById(id);
       if (data) {
-        this.responseMessage.found(data, res)
+        this.responseMessage.createOrFound(data, res)
       } else {
         this.responseMessage.notFound("User not found", res);
       }

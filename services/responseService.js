@@ -17,13 +17,13 @@ module.exports = class ResponseService {
     })
   }
 
-  exist(message, res) {
+  conflict(message, res) {
     res.status(409).json({
       message: message
     })
   }
 
-  found(data, res) {
+  createOrFound(data, res) {
     res.status(200).json({
       data: data
     })
@@ -34,11 +34,11 @@ module.exports = class ResponseService {
       res.status(status).json({
         message: message
       })
+    } else {
+      res.status(status).json({
+        data: data
+      })
     }
-
-    res.status(status).json({
-      data: data
-    })
 
   }
 }

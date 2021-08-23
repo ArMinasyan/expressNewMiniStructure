@@ -16,7 +16,7 @@ module.exports = class UserService extends BaseService {
 
 
   async ReadAll(res) {
-    this.responseMessage.found([{ 'name': "admin" }], res)
+    this.responseMessage.createOrFound([{ 'name': "admin" }], res)
   }
 
 
