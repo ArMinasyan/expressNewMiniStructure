@@ -2,13 +2,12 @@ const DBService = require('./DBService');
 const userSchema = require('../Schemas/user.schema');
 const BaseService = require('./BaseService');
 const { mongo } = require("mongoose");
-const ResponseService = require('./responseService');
 
 module.exports = class UserService extends BaseService {
   constructor(app) {
     super();
     this.userModel = (new DBService()).createModel('user', userSchema);
-    this.Controller(app, 'user');
+    this.Controller({ app, path: 'user' });
   }
 
 
